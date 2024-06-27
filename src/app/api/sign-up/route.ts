@@ -32,15 +32,24 @@ export async function POST(request: Request) {
     const verifyCode = Math.floor(100000 + Math.random() * 900000).toString();
 
     if (existingUserByEmail) {
-      if(existingUserByEmail.isVerified) {
-        return Response.json({
-          success : false,
-          message : "User already exixts by this email"
-        }, { status : 400 })
-      } else {
-        // TODO////////////////////////////////////////
-      }
+      // agar user exists karta hai email se natdo ki  user already exists
+      if (existingUserByEmail.isVerified) {
+        return Response.json(
+          {
+            success: false,
+            message: "User already exists by this email",
+          },
+          { status: 400 }
+        );
 
+        // Agar user email se exists nahi karta hai to password ko hashed kar diya aur user ke password ko hashed password ke barabar kar diya hai
+      } else {
+        const hashedPassword = await bcrypt.hash(password, 10);
+        existingUserByEmail.password = hashedPassword;
+        existingUserByEmail.verifyCode = verifyCode;
+        existingUserByEmail.verifyCodeExpiry = new Date(Date.now() + 3600000);
+        await existingUserByEmail.save();
+      }
 
       // is else part me  user matlab ayya hi pheli baar hai to uska password encrypt kardo aur us user ko register kar do
     } else {
@@ -89,7 +98,6 @@ export async function POST(request: Request) {
         { status: 201 }
       );
     }
-
   } catch (error) {
     console.error("Error registring user", error);
     return Response.json(
