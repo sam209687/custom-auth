@@ -22,6 +22,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
 import Link from "next/link";
+import { Resolver } from "dns";
 
 // all the necessary imports
 
@@ -35,7 +36,7 @@ export default function SignupPage() {
 
   // here we are using debounce linpm install usehooks-tsnpm install usehooks-tsbrary we installed, useDebounceCallback value set to setUsername after 300 millisecond
 
-  const debounced = useDebounceCallback(setUsername, 300);
+  const debounced = useDebounceCallback(setUsername, 500);
   const { toast } = useToast();
   const router = useRouter();
 
@@ -47,6 +48,7 @@ export default function SignupPage() {
   // resolver = zod keyword
   // default value are setted to blank
 
+  // Zod implementation with zod Resolver
   const form = useForm<z.infer<typeof signUpSchema>>({
     resolver: zodResolver(signUpSchema),
     defaultValues: {
