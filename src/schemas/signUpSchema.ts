@@ -10,7 +10,19 @@ export const usernameValidation = z
         export const signUpSchema = z.object(
             {
                 username : usernameValidation,
+
+                phone : z.string()
+                .min(10, {message : "Minimum 10 digits required"})
+                .regex(/^[0-9] +$/, { message : "Digits only" })
+                .length(10, { message : "Ten digits required" }),
+
+
                 email : z.string().email({message : "Invalid email address"}),
+
                 password : z.string().min(6, {message :"Minimus 6 character required"}),
-            }
-        )
+                
+                confirm_password : z.string().min(6, {message :"Minimus 6 character required"}),
+            })
+            .refine((data) => data.password === data.confirm_password, {
+                path : ["confirm_password"],
+            });
