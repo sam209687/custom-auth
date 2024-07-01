@@ -2,17 +2,14 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import axios, { AxiosError } from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { signIn } from "next-auth/react";
 
 import { useToast } from "@/components/ui/use-toast";
-import { redirect, useRouter } from "next/navigation";
-import { ApiResponse } from "@/types/ApiResponse";
+import { useRouter } from "next/navigation";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -22,7 +19,6 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
 import Link from "next/link";
-import { Resolver } from "dns";
 import { signInSchema } from "@/schemas/signInSchema";
 
 // all the necessary imports
@@ -52,14 +48,13 @@ export default function SignInPage() {
 
     if (result?.error) {
       toast({
-        title : "Login Failed",
-        description : "Incorrect credentials",
-        variant : "destructive"
-
-      })
+        title: "Login Failed",
+        description: "Incorrect credentials",
+        variant: "destructive",
+      });
     }
     if (result?.url) {
-      router.replace('/')
+      router.replace("/");
     }
   };
 
@@ -108,7 +103,8 @@ export default function SignInPage() {
             <Button type="submit" disabled={isSubmitting}>
               {isSubmitting ? (
                 <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Please wait....
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Please
+                  wait....
                 </>
               ) : (
                 "Signin"
