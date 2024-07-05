@@ -4,7 +4,7 @@
 /node_modules
 /.pnp
 .pnp.js
-.yarn/install-state.gznpx create-next-app@latest
+.yarn/install-state.gz
 
 # testing
 /coverage
@@ -13,14 +13,12 @@
 /.next/
 /out/
 
-
 # production
 /build
 
 # misc
 .DS_Store
 *.pem
-.env
 
 # debug
 npm-debug.log*
@@ -36,3 +34,4 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+.env

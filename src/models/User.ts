@@ -22,6 +22,7 @@ const ProductsSchema: Schema<Products> = new Schema({
 export interface User extends Document {
   username: string;
   email: string;
+  phone : string;
   password: string;
   verifyCode: string;
   isVerified: boolean;
@@ -45,10 +46,19 @@ const UserSchema: Schema<User> = new Schema({
     match: [/.+\@.+\..+/, "Provide vaild emaill address"],
   },
 
+  phone: {
+    type: String,
+    required: [true, "Phone number required"],
+    unique: true,
+    
+  },
+
   password: {
     type: String,
     required: [true, "Password required"],
   },
+
+  
 
   verifyCode: {
     type: String,

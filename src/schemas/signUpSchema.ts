@@ -13,8 +13,7 @@ export const usernameValidation = z
 
                 phone : z.string()
                 .min(10, {message : "Minimum 10 digits required"})
-                .regex(/^[0-9] +$/, { message : "Digits only" })
-                .length(10, { message : "Ten digits required" }),
+                .max(10, { message : "not more that 10 digits"}),
 
 
                 email : z.string().email({message : "Invalid email address"}),
